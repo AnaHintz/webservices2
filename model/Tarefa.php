@@ -86,6 +86,24 @@ public function create() {
     return false;
 }
 
+//pegar pelo id do usuario
+public function getTarefaUserById($id_usuario) {
+    $query = 'SELECT * FROM ' . $this->table_name . ' WHERE id_usuario = :id_usuario';
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(':id_usuario', $id_usuario);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($row) {
+        $this->titulo = $row['titulo'];
+        $this->descricao = $row['descricao'];
+        $this->id_usuario = $row['id_usuario'];
+        return $row;
+    }
+    return [];
+}
+
+
+
 
 
 
